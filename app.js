@@ -40,15 +40,15 @@ app.get('/', function(req, res) {
 app.post('/sfdc-in', function(req, res) {
   
   // if no body, respond with a 400
-  if(!req.body) return res.end(400);
+  if(!req.body) return res.send(400);
 
   var parser = new xml2js.Parser();
 
   parser.parseString(req.body, function(err, result) {
-    if(err) return res.end(400);
+    if(err) return res.send(400);
 
     console.dir(result);
-    return res.end(200);
+    return res.send(200);
 
   });
 
