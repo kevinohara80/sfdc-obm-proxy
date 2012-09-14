@@ -8,6 +8,7 @@ var http    = require('http');
 var path    = require('path');
 var request = require('request');
 var auth    = require('./lib/middleware').auth;
+var xml2js  = require('xml2js');
 
 var app = express();
 
@@ -37,7 +38,20 @@ app.get('/', function(req, res) {
 });
 
 app.post('/sfdc-in', function(req, res) {
-  res.end(500);
+  
+  // if no body, respond with a 400
+  if(!req.body) return res.end(400);
+
+  var parser = new xml2js.Parser();
+
+  parser.parseString(req.body, function(err, result) {
+    if(err) return res.end(400);
+
+    console.dir(result);
+    return res.end(200);
+
+  });
+
 });
 
 http.createServer(app).listen(app.get('port'), function(){
