@@ -18,7 +18,7 @@ app.configure(function(){
   //app.set('view engine', 'jade');
   //app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(auth);
   app.use(app.router);
@@ -40,10 +40,14 @@ app.get('/', function(req, res) {
 app.post('/sfdc-in', function(req, res) {
   
   // if no body, respond with a 400
+  /*
   if(!req.body) {
     console.log('[POST] no body found');
     return res.send(400);
   }
+  */
+  console.log('---REQUEST---');
+  console.dir(req);
 
   var parser = new xml2js.Parser();
 
