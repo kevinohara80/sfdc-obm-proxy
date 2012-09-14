@@ -50,6 +50,7 @@ app.post('/sfdc-in', function(req, res) {
   parser.parseString(req.body, function(err, result) {
     if(err) {
       console.log('[POST] xml parser error');
+      console.log(req.body);
       return res.send(400);
     }
 
