@@ -44,13 +44,13 @@ app.post('/sfdc-in', function(req, res) {
   //console.log(req.body['soapenv:Envelope']['soapenv:Body'][0].notifications);
   var rawSoap = req.body['soapenv:Envelope']['soapenv:Body'][0].notifications[0];
   var message = {
-    'xmlns': rawSoap['$']['xmlns'],
-    'organizationId': rawSoap['$']['OrganizationId'],
-    'actionId': rawSoap['$']['ActionId'],
-    'sessionId': rawSoap['$']['SessionId'],
-    'enterpriseUrl': rawSoap['$']['EnterpriseUrl'],
-    'partnerUrl': rawSoap['$']['PartnerUrl'],
-    'notification': rawSoap['$']['Notification']
+    xmlns: rawSoap['$']['xmlns'],
+    organizationId: rawSoap['OrganizationId'][0],
+    actionId: rawSoap['ActionId'][0],
+    sessionId: rawSoap['SessionId'][0],
+    enterpriseUrl: rawSoap['EnterpriseUrl'][0],
+    partnerUrl: rawSoap['PartnerUrl'][0],
+    notification: rawSoap['Notification'][0]
   }
 
   console.dir(message);
