@@ -3,12 +3,13 @@
  * module dependencies
  *************************************/
 
-var express = require('express');
-var http    = require('http');
-var path    = require('path');
-var request = require('request');
-var auth    = require('./lib/middleware').auth;
-var xml2js  = require('xml2js');
+var express  = require('express');
+var http     = require('http');
+var path     = require('path');
+var request  = require('request');
+var auth     = require('./lib/middleware').auth;
+var parseXml = require('./lib/middleware').parseXml;
+var xml2js   = require('xml2js');
 
 var app = express();
 
@@ -18,9 +19,9 @@ app.configure(function(){
   //app.set('view engine', 'jade');
   //app.use(express.favicon());
   app.use(express.logger('dev'));
-  //app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(auth);
+  app.use(parseXml);
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
@@ -40,28 +41,14 @@ app.get('/', function(req, res) {
 app.post('/sfdc-in', function(req, res) {
   
   // if no body, respond with a 400
-  /*
+  console.log(req.body);
+
   if(!req.body) {
     console.log('[POST] no body found');
     return res.send(400);
-  }
-  */
-  console.log('---REQUEST---');
-  console.dir(req);
-
-  var parser = new xml2js.Parser();
-
-  parser.parseString(req.body, function(err, result) {
-    if(err) {
-      console.log('[POST] xml parser error');
-      console.log(req.body);
-      return res.send(400);
-    }
-
-    console.dir(result);
+  } else {
     return res.send(200);
-
-  });
+  }
 
 });
 
