@@ -41,7 +41,7 @@ app.get('/', function(req, res) {
 app.post('/sfdc-in', function(req, res) {
   
   // if no body, respond with a 400
-  console.log(req.body);
+  console.log(req.body['soapenv:Body']);
 
   if(!req.body) {
     console.log('[POST] no body found');
