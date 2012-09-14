@@ -43,7 +43,6 @@ app.post('/sfdc-in', function(req, res) {
   // if no body, respond with a 400
   //console.log(req.body['soapenv:Envelope']['soapenv:Body'][0].notifications);
   var rawSoap = req.body['soapenv:Envelope']['soapenv:Body'][0].notifications[0];
-  var notif = 
   var message = {
     'xmlns': rawSoap['$']['xmlns'],
     'organizationId': rawSoap['$']['OrganizationId'],
